@@ -124,25 +124,6 @@ Workspace questions query MySQL using fixed backend functions; user text is neve
 
 For general accounting questions, add your Groq API key to `LLM_API_KEY` in `backend/.env`. The default endpoint is `https://api.groq.com/openai/v1` and the default model is `openai/gpt-oss-20b`; both can be changed with `LLM_BASE_URL` and `LLM_MODEL`. A `gsk_` key is from Groq, not xAI Grok (whose keys use a different format). Without a key, workspace questions continue to work and general questions receive a clear setup message. No LLM request is made for application data questions. Do not paste API keys into chat or commit them.
 
-## Known Limitations
 
-- This is a local walkthrough app and has no authentication, role management, or production deployment setup.
-- Workspace question routing is intentionally small and keyword-based, not a general natural-language query engine.
-- The UI offers create flows for clients/assignees and request edit/delete flows; client and assignee editing/deletion are not included.
-- SMTP and LLM integrations need user-provided services and credentials and cannot be verified from a fresh checkout.
-- The daily schedule follows the machine's local timezone; production should explicitly select and monitor its timezone.
-
-## Future Improvements
-
-- Add authentication and authorization before exposing the app beyond a trusted local environment.
-- Add automated API/UI tests and a deployment-ready secrets strategy.
-- Improve chatbot intent handling and add conversation context without storing messages in MySQL.
-- Add pagination and timezone-aware scheduling for larger teams.
-
-## 15-Minute Walkthrough
-
-1. Show the three-table schema and explain that requests reference one client and one assignee by ID.
-2. Open a client or assignee to show request history/workload coming from joins, not duplicated columns.
-3. Explain overdue as a query-time date/status condition; the completed sample request remains excluded.
 4. Trigger the reminder check. Nodemailer sends first, then `last_reminder_sent` is updated to prevent another same-day send.
 5. Ask a client/assignee question to show a controlled MySQL query, then ask a general accounting question to show the optional LLM path.
